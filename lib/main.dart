@@ -4,8 +4,22 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String tex = "Simo";
+  int _currentIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,41 +35,47 @@ class MyApp extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(child: Container(child: const Text('Heey 👌🏼'))),
+                Center(
+                    child: Container(
+                        child: Text('Heey 👌🏼 $tex , $_currentIndex'))),
               ],
             ),
           ),
-          Container(
-            height: 60,
-            color: Colors.amber[700],
-            child: Column(
-              children: [
-                Container(
-                  height: 50,
-                  color: Colors.blue[500],
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Center(
-                          child: Row(children: const [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Profil'),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text('Recipe'),
-                        )
-                      ])),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.red[800],
+          unselectedItemColor: Colors.white70,
+          currentIndex: _currentIndex,
+          backgroundColor: Colors.amber[200],
+          onTap: _onItemTapped,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  size: 30,
+                ),
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.search,
+                  size: 30,
+                ),
+                label: 'Search'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.account_circle,
+                  size: 30,
+                ),
+                label: 'Profil'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.view_list_rounded,
+                  size: 30,
+                ),
+                label: 'My Recipes'),
+          ]),
     ));
   }
 }
