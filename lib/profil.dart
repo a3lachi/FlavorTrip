@@ -43,7 +43,7 @@ class _ProfilState extends State<Profil> {
                 ),
                 child: Container(
                     padding: const EdgeInsets.all(40.0),
-                    height: 500,
+                    height: 287,
                     width: MediaQuery.of(context).size.width - 40,
                     child: Container(
                       child: const Text('Email : ',

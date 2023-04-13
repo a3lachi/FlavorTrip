@@ -38,30 +38,25 @@ class _MyAppState extends State<MyApp> {
     return (const Text('Bug!'));
   }
 
-  PreferredSizeWidget _getAppBar(int index) {
+  _getAppBar(int index) {
     if (index == 0) {
       return (AppBar(
-        toolbarHeight: 0,
+        toolbarHeight: 20,
         shadowColor: Colors.white,
-        backgroundColor: Colors.white,
-      ));
-    } else if (index == 2) {
-      return (AppBar(
         backgroundColor: Colors.red[800],
-        title: const Text('Profil'),
       ));
     }
-    return (AppBar(
-      backgroundColor: Colors.red[800],
-      title: const Text('Flavor Trip'),
-    ));
+    // return (AppBar(
+    //   backgroundColor: Colors.red[800],
+    //   title: const Text('Flavor Trip'),
+    // ));
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      // appBar: _getAppBar(_currentIndex),
+      appBar: _getAppBar(_currentIndex),
       body: Column(
         children: [
           SizedBox(height: _topBarMargin, child: SizedBox.shrink()),
