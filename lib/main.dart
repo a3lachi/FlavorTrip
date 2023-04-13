@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'profil.dart';
+import 'home.dart';
+import 'search.dart';
+import 'my_recipes.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String tex = "Simo";
   int _currentIndex = 0;
+  final _topBarMargin = 60.0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -21,26 +25,47 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Widget _getMainView(int index) {
+    if (index == 0) {
+      return Home();
+    } else if (index == 1) {
+      return Search();
+    } else if (index == 2) {
+      return Profil();
+    } else if (index == 3) {
+      return MyRecipes();
+    }
+    return (const Text('Bug!'));
+  }
+
+  PreferredSizeWidget _getAppBar(int index) {
+    if (index == 0) {
+      return (AppBar(
+        toolbarHeight: 0,
+        shadowColor: Colors.white,
+        backgroundColor: Colors.white,
+      ));
+    } else if (index == 2) {
+      return (AppBar(
+        backgroundColor: Colors.red[800],
+        title: const Text('Profil'),
+      ));
+    }
+    return (AppBar(
+      backgroundColor: Colors.red[800],
+      title: const Text('Flavor Trip'),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red[800],
-        title: const Text('Flavor Trip'),
-      ),
+      // appBar: _getAppBar(_currentIndex),
       body: Column(
         children: [
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                    child: Container(
-                        child: Text('Heey 👌🏼 $tex , $_currentIndex'))),
-              ],
-            ),
-          ),
+          SizedBox(height: _topBarMargin, child: SizedBox.shrink()),
+          Container(child: _getMainView(_currentIndex)),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -48,7 +73,7 @@ class _MyAppState extends State<MyApp> {
           selectedItemColor: Colors.red[800],
           unselectedItemColor: Colors.white70,
           currentIndex: _currentIndex,
-          backgroundColor: Colors.amber[200],
+          backgroundColor: Colors.amber[600],
           onTap: _onItemTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
